@@ -64,3 +64,55 @@ import { Request, Response } from 'express';
     }
   };
 
+// Function to add a friend
+export const addFriend = async (req: Request, res: Response): Promise<Response> => {
+  const { userId, friendId } = req.params; // Extract userId and friendId from request parameters
+  
+  try {
+    // Update the user document to add the friendId to the friends array
+    if (userId === friendId) {//Trying to add yourself as a friend
+      console.error('userID: '+ userId + "friendId: " + friendId);
+      return res.status(500).json({ message: 'Unable to add self as a friend'});
+
+    }
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { $addToSet: { friends: friendId } }, // Use $addToSet to avoid duplicates
+      { new: true } // Return the updated document
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    console.log('Updated User:', updatedUser);
+    return res.status(200).json(updatedUser); // Send the updated user back in the response
+  } catch (error) {
+    console.error('Error adding friend:', error);
+    return res.status(500).json({ message: 'Error adding friend' }); // Ensure to return a response in case of error
+  }
+};
+// Function to delete a friend
+export const deleteFriend = async (req: Request, res: Response): Promise<Response> => {
+  const { userId, friendId } = req.params; // Extract userId and friendId from request parameters
+  
+  try {
+    // Update the user document to delete the friendId in the friends array
+      const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { $pull: { friends: friendId } }, 
+      { new: true } // Return the updated document
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    console.log('Updated User:', updatedUser);
+    return res.status(200).json(updatedUser); // Send the updated user back in the response
+  } catch (error) {
+    console.error('Error adding friend:', error);
+    return res.status(500).json({ message: 'Error adding friend' }); // Ensure to return a response in case of error
+  }
+};
+
