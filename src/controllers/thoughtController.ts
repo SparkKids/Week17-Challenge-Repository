@@ -4,6 +4,7 @@ import { Request, Response } from 'express';
 import { Types } from 'mongoose'; // Import Types from mongoose
 export const getThoughts = async (_req: Request, res: Response) => {
   try {
+    //Returns All Thoughts
     const thoughts = await Thought.find()
 
     res.json(thoughts);
@@ -14,12 +15,14 @@ export const getThoughts = async (_req: Request, res: Response) => {
 }
 
 export const getSingleThought = async (req: Request, res: Response) => {
+  //req.params.thoughtId - thoughtId to retrieve
   try {
     const thought = await Thought.findById(req.params.thoughtId)
 
     if (!thought) {
       res.status(404).json({ message: 'No thought with that ID' });
     } else {
+      //Convert the retrieved thougt to JSON and return it
       res.json(thought);
     }
   } catch (err) {
@@ -27,6 +30,10 @@ export const getSingleThought = async (req: Request, res: Response) => {
   }
 }
 export const addThought = async (req: Request, res: Response) => {
+  //req.body.thoughtText - The thought being added,
+  //req.body.username - Who is adding the thought (added to the thought)
+  //req.body.userId - The userId of Who is adding the thought 
+  //   (added to the user thought array)
   try {
     const thought = await Thought.create(req.body);
 
@@ -43,36 +50,15 @@ export const addThought = async (req: Request, res: Response) => {
   }
 };
 
-// create a new thought
-export const createThought = async (req: Request, res: Response) => {
-  try {
-    // Create the thought with a new thoughtId
-    const thought = await Thought.create({
-      ...req.body, // Spread the existing request body
-      userId: req.body.userId
-    });
-
-    // Update the user's thoughts array with the new thought's thoughtId
-    const updatedUser = await User.findByIdAndUpdate(
-      req.body.userId, // Correctly searching by userId
-      { $push: { thoughts: thought._id } }, // Update the thoughts array
-      { new: true } // Return the updated document
-    );
-
-    // Log the updated user
-    console.log("Updated User:", updatedUser);
-    res.json(thought);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json(err);
-  }
-};
 // update a thought document
 export const updateThought = async (req: Request, res: Response) => {
+  //req.params.thoughtId - The thoughtId to update
+  //req.body.thoughtText - The updated thought
   try {
     const result = await Thought.findByIdAndUpdate(
       req.params.thoughtId,
-      { thoughtText: req.body.thoughtText });
+      { thoughtText: req.body.thoughtText },
+      {new: true}); // new: true = Return the modified Thought
     res.status(200).json(result);
     console.log(`Updated: ${result}`);
 
