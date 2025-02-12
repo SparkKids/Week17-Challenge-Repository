@@ -5,7 +5,21 @@
 ## Description
 This application provides an API for accessing a MongoDb for all CRUD operations in a social networking application.
 
-The API connects to MongooseDb using the MongooseDb connect api to connect to the database and exports mongoose.connection for use by the rest of the application. After the backend is started, all functionality is invoked using http URLs
+The API connects to MongooseDb using the MongooseDb connect api to connect to the database and exports mongoose.connection for use by the rest of the application. The application runs using Express JS. After the backend is started, all functionality is invoked using http URLs
+
+## Table of Contents
+
+- [Description](#description)
+- [Installation](#installation)
+- [Usage](#usage)
+- [NoSQL-Backend](#nosql-backend)
+- [Insomnia-Testing](#insomnia-testing)
+- [API-Routes](#api-routes)
+- [Video](#video)
+- [Credits](#credits)
+- [License](#license)
+- [Badges](#badges)
+
 
 ## Installation
 All code is located in the gitHub repository https://github.com/SparkKids/Week17-Challenge-Repository
@@ -21,9 +35,9 @@ npm run build
 These npm commands install all dependencies for the program and build the package for execution
 
 ## Usage
-This weeks challenge has a noSQL (MongoDB) based backend. The backend is tested using Insomnia.
+This weeks challenge has a noSQL (MongoDB) based backend running Express JS. The backend is tested using Insomnia.
 
-### NoSQL Backend
+### NoSQL-Backend
 The package is run from the git-bash command line prompt:
 From  ~/Challenge-17/Main/
 Enter:
@@ -34,11 +48,11 @@ When the backend application has started the command line will display:
 API server running on port nnnn! 
 nnnn is the port # the application is running on. Write the port # down. This port# is used for testin in Insomnia
 
-### Insomnia Testing
+### Insomnia-Testing
 
 You will need an Insomnia account to test the MongoDb backend. Refer to https://insomnia.rest/ for details.
 
-### API Routes
+### API-Routes
 Note: In these examples, the API server is running on 3001 (localhost:3001) 
 
 /api/users
@@ -138,24 +152,28 @@ Returns:
 res.status(200).json(updatedThought) = The updated thought including the reactions array
 
 
-
+ ## Video
   NoSQL: Social Network API Video: https://watch.screencastify.com/v/df5lyMFQf3C7vhlPQGcF
 
   ## Credits
 
-  Extensive use was made of the BootCamp Xpert Learning Assistant. This AI tool was a valuable learning tool. It helped with debugging and understanding how to write better Mongoose code. 
+  Extensive use was made of the BootCamp Xpert Learning Assistant. This AI tool was a valuable learning tool. It helped with debugging and understanding how to write better Mongoose code. For example, I had some section headings in my README that were hyphenatedsuch as API-Routes. I incorrectly had these in Mixed Case in my TOC. I had to change (# API-Routes) to (# api-routes).  
 
   I found as I continued coding. I had to rely on the BootCamp Xpert Learning Assistant less often.
+
+  Occasional use was also made of the bootcamp tutors, and the AskBCS Learning Assistant.
 
   ## License
 
   This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
   ## Badges
- ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)
+ ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
 
  ![MongoDb](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
  
  ![JSON](https://img.shields.io/badge/json-5E5C5C?style=for-the-badge&logo=json&logoColor=white)
 
  ![Insomnia](https://img.shields.io/badge/Insomnia-5849be?style=for-the-badge&logo=Insomnia&logoColor=white)
+
+ ![Express JS](https://img.shields.io/badge/Express%20js-000000?style=for-the-badge&logo=express&logoColor=white)
