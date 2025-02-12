@@ -40,9 +40,9 @@ export interface IThought extends Document {
   reactions: IReaction[];
 }
 // Construct a new instance of the schema class
-export const thoughtSchema = new Schema<IThought>(
+export const ThoughtSchema = new Schema<IThought>(
   {
-    thoughtText: {
+      thoughtText: {
       type: String,
       required: true,
       minlength: 1,   // Minimum length of 1 character
@@ -66,11 +66,10 @@ export const thoughtSchema = new Schema<IThought>(
   },
   opts 
 );
-// Create a virtual property `fullName` with a getter and setter.
-thoughtSchema.virtual('reactionCount').
+// Create a virtual property `reactionCount` with a getter and setter.
+ThoughtSchema.virtual('reactionCount').
   get(function() { return this.reactions.length; })
 // Using model() to compile a model based on the schema 'thoughtSchema'
-const Thought = model('thought', thoughtSchema);
-
+const Thought = model<IThought>('Thought', ThoughtSchema);
 export default Thought;
 

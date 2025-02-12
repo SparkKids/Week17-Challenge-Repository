@@ -1,18 +1,22 @@
 // Require schema and model from mongoose
 import { Schema, model, Document } from 'mongoose';
-import { IThought, thoughtSchema } from './Thought.js'
+//import { IThought } from './Thought.js'
 
 
 interface IUser extends Document {
   username: string;
   email: string;
-  thoughts: IThought[];
-  friends: IUser[];
+  thoughts: Schema.Types.ObjectId[]; // Change from IThought[] to ObjectId[]
+  friends: Schema.Types.ObjectId[]; // Change from IUser[] to ObjectId[]
 }
+
 // Construct a new instance of the schema class
 const userSchema = new Schema<IUser>({
   // Configure individual properties using Schema Types
-  username: { type: String, required: true, trim: true },
+  // userId: {
+  //   type: Schema.Types.ObjectId, required: true
+  // },
+username: { type: String, required: true, trim: true },
   email: {
     type: String, required: true, unique: true,
     validate: {
@@ -22,7 +26,7 @@ const userSchema = new Schema<IUser>({
       message: 'Invalid email address format',
     },
   },
-  thoughts: [thoughtSchema],
+  thoughts: [{ type: Schema.Types.ObjectId, ref: 'Thought' }],
   friends: [{ type: Schema.Types.ObjectId, ref: 'User' }] // Use ObjectId to reference the User model
 })
 
