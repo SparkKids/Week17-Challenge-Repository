@@ -7,10 +7,10 @@ export const getThoughts = async (_req: Request, res: Response) => {
     //Returns All Thoughts
     const thoughts = await Thought.find()
 
-    res.json(thoughts);
+    return res.json(thoughts);
   } catch (err) {
     console.error({ message: err });
-    res.status(500).json(err);
+    return res.status(500).json(err);
   }
 }
 
@@ -20,13 +20,13 @@ export const getSingleThought = async (req: Request, res: Response) => {
     const thought = await Thought.findById(req.params.thoughtId)
 
     if (!thought) {
-      res.status(404).json({ message: 'No thought with that ID' });
+      return res.status(404).json({ message: 'No thought with that ID' });
     } else {
       //Convert the retrieved thougt to JSON and return it
-      res.json(thought);
+      return res.json(thought);
     }
   } catch (err) {
-    res.status(500).json(err);
+    return res.status(500).json(err);
   }
 }
 export const addThought = async (req: Request, res: Response) => {
@@ -44,26 +44,26 @@ export const addThought = async (req: Request, res: Response) => {
       { new: true }
     );
 
-    res.json(thought);
+    return res.json(thought);
   } catch (err) {
-    res.status(500).json(err);
+    return res.status(500).json(err);
   }
 };
 
 // update a thought document
 export const updateThought = async (req: Request, res: Response) => {
   //req.params.thoughtId - The thoughtId to update
-  //req.body.thoughtText - The updated thought
+  //req.body.thoughtText - The updated thought's text
   try {
     const result = await Thought.findByIdAndUpdate(
       req.params.thoughtId,
       { thoughtText: req.body.thoughtText },
       {new: true}); // new: true = Return the modified Thought
-    res.status(200).json(result);
+    return res.status(200).json(result);
     console.log(`Updated: ${result}`);
 
   } catch (err) {
-   res.status(500).json({ message: 'findOneAndUpdate(): something went wrong' });
+   return res.status(500).json({ message: 'findOneAndUpdate(): something went wrong' });
 
   }
 }

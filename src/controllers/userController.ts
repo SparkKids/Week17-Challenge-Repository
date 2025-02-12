@@ -6,12 +6,12 @@ export const getUsers = async (_req: Request, res: Response) => {
   try {
     //Return all users with their thoughts array populated
     const users = await User.find().populate('thoughts');
-    res.json(users);
+    return res.json(users);
   } catch (err) {
     console.error("Error fetching users:", err);
 
     const errorMessage = err instanceof Error ? err.message : "Unknown error";
-    res.status(500).json({ message: "Internal Server Error", error: errorMessage });
+    return res.status(500).json({ message: "Internal Server Error", error: errorMessage });
   }
 };
 
