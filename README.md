@@ -153,7 +153,7 @@ res.status(200).json(updatedThought) = The updated thought including the reactio
 
 
  ## Video
-  NoSQL: Social Network API Video: https://watch.screencastify.com/v/df5lyMFQf3C7vhlPQGcF
+  NoSQL: Social Network API Video: https://drive.google.com/file/d/13UMsUajuW-Ks9vLru6yhPmo8P4r8XNMI/view
 
   ## Credits
 
